@@ -59,7 +59,7 @@ const stackTokens: IStackTokens = { childrenGap: 20 };
 export class ListNotifications extends React.Component<
   IListNotificationsProps,
   IListNotificationsState
-> {
+  > {
   private _renderMessages: JSX.Element[] = [];
 
   constructor(props: IListNotificationsProps) {
@@ -96,7 +96,7 @@ export class ListNotifications extends React.Component<
   public componentDidUpdate(
     prevProps: IListNotificationsProps,
     prevState: IListNotificationsState
-  ): void {}
+  ): void { }
 
   /**
    *
@@ -115,7 +115,7 @@ export class ListNotifications extends React.Component<
           chat: { id: message.chat.id }
         });
 
-        const chatItem =  listChats && listChats.length > 0 ? listChats[index] : null;
+        const chatItem = listChats && listChats.length > 0 ? listChats[index] : null;
         const facepilePersonas = chatItem ? chatItem.chatMembers : null;
         const userInfo: IUser = await services.getUser(
           message.chatMessage.from.user.id
@@ -181,53 +181,53 @@ export class ListNotifications extends React.Component<
                       {message.chatMessage.attachments.length > 0 &&
                         message.chatMessage.attachments.map(attachment => {
                           return (
-                             // ignore adaptive cards 
-                              attachment.contentType !== 'application/vnd.microsoft.card.adaptive' && attachment.contentType !== 'application/vnd.microsoft.card.thumbnail' ?
+                            // ignore adaptive cards
+                            attachment.contentType !== 'application/vnd.microsoft.card.adaptive' && attachment.contentType !== 'application/vnd.microsoft.card.thumbnail' ?
                               <Attachment
-                              fileUrl={attachment.contentUrl}
-                              name={attachment.name}
-                            />
-                            : <div>Please click to see message</div>
-                            
+                                fileUrl={attachment.contentUrl}
+                                name={attachment.name}
+                              />
+                              : <div>Please click to see message</div>
+
                           );
                         })}
                     </>
                   ) : (
-                    <>
-                      {message.chatMessage.body.contentType == "text" &&
-                         (
-                          <Text
-                            styles={{
-                              root: {
-                                marginTop: 15,
-                                color: palette.themeDarker
+                      <>
+                        {message.chatMessage.body.contentType == "text" &&
+                          (
+                            <Text
+                              styles={{
+                                root: {
+                                  marginTop: 15,
+                                  color: palette.themeDarker
+                                }
+                              }}
+                              variant="mediumPlus"
+                            >
+                              {
+                                message.chatMessage.body.content.indexOf('<attachment') !== -1 ?
+                                  message.chatMessage.body.content.substr(0, message.chatMessage.body.content.indexOf('<attachment'))
+                                  :
+                                  message.chatMessage.body.content
                               }
-                            }}
-                            variant="mediumPlus"
-                          >
-                            {
-                            message.chatMessage.body.content.indexOf('<attachment') !== -1 ?
-                            message.chatMessage.body.content.substr(0,message.chatMessage.body.content.indexOf('<attachment'))
-                            :
-                            message.chatMessage.body.content
-                            }
-                          </Text>
-                        )}
-                      {message.chatMessage.body.contentType == "text" &&
-                        message.chatMessage.attachments.length > 0 &&
+                            </Text>
+                          )}
+                        {message.chatMessage.body.contentType == "text" &&
+                          message.chatMessage.attachments.length > 0 &&
 
-                        message.chatMessage.attachments.map(attachment => {
-                          return (
-                            <Attachment
-                              fileUrl={attachment.contentUrl}
-                              name={attachment.name}
-                            />
-                          );
-                        })
+                          message.chatMessage.attachments.map(attachment => {
+                            return (
+                              <Attachment
+                                fileUrl={attachment.contentUrl}
+                                name={attachment.name}
+                              />
+                            );
+                          })
 
                         }
-                    </>
-                  )}
+                      </>
+                    )}
                 </div>
               </div>
             </div>
@@ -264,26 +264,26 @@ export class ListNotifications extends React.Component<
     //
     try {
       if (message.chatMessage.body.contentType == "html") {
-      const _ch = cheerios.load(message.chatMessage.body.content);
-      _ch('a').attr('href','#').attr('onclick',`window.open('${_ch('a').attr('href')}'`).addClass(`${styles.link}`);
-      _ch('img[itemtype!="http://schema.skype.com/Emoji"]').css("width", "100%").css("height","100%");
-    // is sticker image get src to convert DataBase64
-      const _imgSrc:any = _ch('img[src*="$value"]').attr('src');
-      let  _returnHtml = '';
+        const _ch = cheerios.load(message.chatMessage.body.content);
+        _ch('a').attr('href', '#').attr('onclick', `window.open('${_ch('a').attr('href')}'`).addClass(`${styles.link}`);
+        _ch('img[itemtype!="http://schema.skype.com/Emoji"]').css("width", "100%").css("height", "100%");
+        // is sticker image get src to convert DataBase64
+        const _imgSrc: any = _ch('img[src*="$value"]').attr('src');
+        let _returnHtml = '';
 
-      if ( _imgSrc && _imgSrc.length > 0  ) {
-        const dataURI = await services.getHostedContentImage(_imgSrc);
-        if (dataURI) {
-          _ch('img[src*="$value"]').attr('src',dataURI);
-        } else {
-          // if can't get image send default message to click to open
-          _returnHtml = "<div>Please click to see message</div>";
-          _ch('img[src*="$value"]').replaceWith(_returnHtml);
+        if (_imgSrc && _imgSrc.length > 0) {
+          const dataURI = await services.getHostedContentImage(_imgSrc);
+          if (dataURI) {
+            _ch('img[src*="$value"]').attr('src', dataURI);
+          } else {
+            // if can't get image send default message to click to open
+            _returnHtml = "<div>Please click to see message</div>";
+            _ch('img[src*="$value"]').replaceWith(_returnHtml);
+          }
         }
-      }
-      // Return Message!
-      return  _ch.html();
-      }else{ // is text message
+        // Return Message!
+        return _ch.html();
+      } else { // is text message
         return message.chatMessage.body.content;
       }
 
@@ -336,16 +336,16 @@ export class ListNotifications extends React.Component<
               ) : this.state.renderMessages.length > 0 ? (
                 this.state.renderMessages
               ) : (
-                <Stack
-                  horizontal
-                  tokens={{ childrenGap: 10 }}
-                  horizontalAlign="center"
-                  style={{ alignItems: "center" }}
-                >
-                  <Icon iconName="Info" style={{ fontSize: 22 }} />
-                  <Label>{strings.NoMessages}</Label>
-                </Stack>
-              )}
+                      <Stack
+                        horizontal
+                        tokens={{ childrenGap: 10 }}
+                        horizontalAlign="center"
+                        style={{ alignItems: "center" }}
+                      >
+                        <Icon iconName="Info" style={{ fontSize: 22 }} />
+                        <Label>{strings.NoMessages}</Label>
+                      </Stack>
+                    )}
             </Stack>
           </div>
         </Dialog>
