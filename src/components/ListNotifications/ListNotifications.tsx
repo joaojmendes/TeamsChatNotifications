@@ -181,10 +181,14 @@ export class ListNotifications extends React.Component<
                       {message.chatMessage.attachments.length > 0 &&
                         message.chatMessage.attachments.map(attachment => {
                           return (
-                            <Attachment
+                             
+                              attachment.contentType !== 'application/vnd.microsoft.card.adaptive' ?
+                              <Attachment
                               fileUrl={attachment.contentUrl}
                               name={attachment.name}
                             />
+                            : <div>Please click to see message</div>
+                            
                           );
                         })}
                     </>
