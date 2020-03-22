@@ -8,6 +8,7 @@ import {
   IconType,
   ImageSize
 } from "@pnp/spfx-controls-react/lib/FileTypeIcon";
+import { IAttachment } from "../../entities/IChatMessage";
 
 const theme = getTheme();
 const { palette, fonts } = theme;
