@@ -24,7 +24,7 @@
     "environment": "spo",
     "framework": "react",
     "isCreatingSolution": true,
-    "version": "1.9.1",
+    "version": "1.10.0",
     "libraryName": "teamschat-notifications",
     "libraryId": "5f31f0fd-8270-4f8f-9b48-640d7579f088",
     "packageManager": "npm",

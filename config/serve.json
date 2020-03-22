@@ -4,7 +4,7 @@
   "https": true,
   "serveConfigurations": {
     "default": {
-      "pageUrl": "https://sitenanuvem.sharepoint.com/SitePages/Home.aspx",
+      "pageUrl": "https://devjjm.sharepoint.com/SitePages/Home.aspx",
       "customActions": {
         "45bc9cbc-ae08-4be4-a537-7c80f13699cf": {
           "location": "ClientSideExtension.ApplicationCustomizer",
@@ -15,7 +15,7 @@
       }
     },
     "teamsChatNotifications": {
-      "pageUrl": "https://sitenanuvem.sharepoint.com/SitePages/Home.aspx",
+      "pageUrl": "https://devjjm.sharepoint.com/SitePages/Home.aspx",
       "customActions": {
         "45bc9cbc-ae08-4be4-a537-7c80f13699cf": {
           "location": "ClientSideExtension.ApplicationCustomizer",
